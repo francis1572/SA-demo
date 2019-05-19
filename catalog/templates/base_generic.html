@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   
-  {% block title %}<title> 江鴻數學 線上系統 </title>{% endblock %}
+  {% block title %}<title> 江鴻數學線上系統 </title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   <!-- Add additional CSS in static file -->
@@ -25,87 +27,157 @@
     --main-black: #34314c;
 }
 
-body, h1, h5 {font-family: 'Noto Sans TC', "Raleway", sans-serif}
+body, h1, h5 {
+  font-family: 'Noto Sans TC', "Raleway", sans-serif
+}
+
 body, html {
   height: 100%;
   color: var(--main-black) !important;
-}
-body>div{
-  padding: 10px 20px
-}
-.bgimg {
   background-image: url('/../static/images/background2.png');
-  min-height: 100%;
   background-position: center;
   background-size: cover;
 }
-</style>
 
-<script language="javascript">
-  var t = null;
-  t = setTimeout(time,1000);
-  function time()
-  {
-    clearTimeout(t);
-    dt = new Date();
-    var y=dt.getYear()+1900;
-    var mm=dt.getMonth()+1;
-    var d=dt.getDate();
-    var weekday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    var day=dt.getDay();
-    document.getElementById("timeShow").innerHTML =  y+"/"+mm+"/"+d+"/"+weekday[day];
-    t = setTimeout(time,1000); 
-  }
-</script>
+body>div{
+  padding: 10px 20px
+}
+
+/* 
+.bgimg {
+  min-height: 100%;
+} */
+
+.main-btn{
+  background: var(--main-yellow);
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.main-btn:hover{
+  text-decoration: none
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  padding: 2.5% 0;
+  margin-top:50px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+</style>
 
 <body>
 
-<div class="bgimg w3-display-container">
-  <div class="w3-display-middle w3-large">
-    {% block content %}{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 10px 25px;">
+  <a class="navbar-brand" href="{% url 'index' %}" style="font-size: 28px">江鴻數學</a>
+  <div class="collapse navbar-collapse">
+
+    <ul class="navbar-nav mr-auto" style="font-size: 18px">
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'index' %}">主頁面</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/catalog/register/">註冊 </a>
+      </li>
+
+      {% if request.user.is_authenticated %}
+        {% if perms.catalog.can_add_food %} <!--如果是super user，顯示“新增學籍資料”-->
+        <li class="nav-item">
+          <a class="nav-link active" href="/catalog/addFood/">新增學籍資料</a>
+        </li>
+        {% endif %}
+      {% endif %}
+
+    </ul>
+
+    {% if request.user.is_authenticated %}
+      <!--如果登入成功，顯示“登出”-->
+      <a href="{% url 'logout'%}?next={{request.path}}" class="w3-button main-btn">登出</a>
+    {% else %}
+      <!--如果還沒有登入，顯示”登入“-->
+      <a href="{% url 'login'%}?next={{request.path}}" class="w3-button main-btn">登入</a>
+    {% endif %}
   </div>
-  <div class = "w3-jumbo">
+</nav>
+
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- <div class="w3-display-container">
+  <div class="w3-display-middle w3-large">
+    
+  </div> -->
+  
+  <!-- <div class = "w3-jumbo">
     <p> 江鴻數學 線上系統 </p>
   </div>
   <div class="row">
     <div class="col-sm-2">
       {% block sidebar %}
       <ul class="sidebar-nav">
-        <p><a href = "{% url 'index' %}" class="w3-button w3-black">主頁面</button></a></p>
-       <!--  <p><a href = "{% url 'food' %}" class="w3-button w3-black">Food</button></a></p>
-        <p><a href = "{% url 'foodType' %}" class="w3-button w3-black">Food Type</button></a></p> -->
-        <!-- <p><a href = "{% url 'material' %}" class="w3-button w3-black">Food Material</button></a></p> -->
-        <!-- <p><a href = "{% url 'AAA' %}" class="w3-button w3-black">view Evaluation</button></a></p>
-        <p><a href = "/catalog/evaluation/" class="w3-button w3-black">Evaluation</button></a></p>
-        <p><a href = "/catalog/order/" class="w3-button w3-black">Order</button></a></p> -->
-        <p><a href = "/catalog/register/" class="w3-button w3-black">註冊</button></a></p>
-
-        
-      </ul>
-      <ul class="sidebar-nav">
-        {% if request.user.is_authenticated %}
-        <p>User: {{ request.user }}</p>
-        <p><a href="{% url 'logout'%}?next={{request.path}}" class="w3-button w3-black">登出</button></a></p>   
-        {% if perms.catalog.can_add_food %}
-        <p><a href = "/catalog/addFood/" class="w3-button w3-black">新增學籍資料</button></a></p>
+        <p><a href = "{% url 'index' %}" class="w3-button main-btn">主頁面</button></a></p>
+        <p><a href = "/catalog/register/" class="w3-button main-btn">註冊</button></a></p>
+        {% if request.user.is_authenticated %} 
+          <p>User: {{ request.user }}</p>
+          <p><a href="{% url 'logout'%}?next={{request.path}}" class="w3-button main-btn">登出</button></a></p>   
+          {% if perms.catalog.can_add_food %} 
+          <p><a href = "/catalog/addFood/" class="w3-button main-btn">新增學籍資料</button></a></p>
         {% endif %}
-        {% else %}
-        <p><a href="{% url 'login'%}?next={{request.path}}" class="w3-button w3-black">登入</button></a></p> 
+        {% else %} 
+          <p><a href="{% url 'login'%}?next={{request.path}}" class="w3-button main-btn">登入</button></a></p> 
         {% endif %} 
       </ul>
       {% endblock %} 
     </div>
-  </div>
+  </div> -->
 
-  <div class="w3-display-bottomleft w3-container">
+  <!-- <div class="w3-display-bottomleft w3-container">
     <div id = "timeShow"></div>
     <p class="w3-large">NTU IM</p>
-
+  </div> -->
+<!-- </div> -->
+<!--   
+  <div class="row align-self-end justify-content-end margin-bottom" style="position: relative; bottom: 0px">
+    <div class="col">
+      <div id = "timeShow"></div>
+      <p class="w3-large">NTU IM</p>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
   </div>
-</div>
-
-  
+ -->
 </body>
+
+<script language="javascript">
+
+  var t = null;
+  // t = setTimeout(time, 10000);
+
+  function time() {
+    // clearTimeout(t);
+    dt = new Date();
+    var y = dt.getYear()+1900;
+    var mm = dt.getMonth()+1;
+    var d = dt.getDate();
+    var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var day = dt.getDay();
+    document.getElementById("timeShow").innerHTML = y + "/" + mm+"/" + d+"/" + weekday[day];
+    t = setTimeout(time,1000); 
+  }
+
+  time();
+
+</script>  
+
+
 </html>
 
 

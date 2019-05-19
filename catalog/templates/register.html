@@ -1,7 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <form action="" method="post">
+
+    <!-- <form action="" method="post">
       <table>
         <tr>
           <td> <label for="userID">user name:</label> </td>
@@ -12,7 +13,60 @@
           <td> <input id="password" type="text" name="password" style="background-color: black"> </td>
         </tr>
       </table>
-<!--       <input type="hidden" name="ok" value="yes"> -->
       <input type="submit" name="ok" value="註冊" style="background-color:black;">
-    </form>
+    </form> -->
+
+<div class="row">
+  <h1 style="margin-bottom: 20px">註冊</h1>
+</div>
+
+<form action="" method="post">
+
+  <div class="form-group row">
+    <label for="studentName" class="col-sm-1 col-form-label" style="text-align: right">學生姓名</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="studentName" name="studentName" placeholder="請輸入學生姓名">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="parentName" class="col-sm-1 col-form-label" style="text-align: right">家長姓名</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="parentName" name="parentName" placeholder="請輸入家長姓名">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="parentName" class="col-sm-1 col-form-label" style="text-align: right">授權碼</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="parentName" name="parentName" placeholder="請輸入授權碼">
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+
+    <label for="userID" class="col-sm-1 col-form-label" style="text-align: right">自定帳號</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="userID" name="userID" placeholder="請輸入使用者名稱">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="password" class="col-sm-1 col-form-label" style="text-align: right">自定密碼</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="password" name="password" placeholder="請輸入密碼">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2">&nbsp;</div>
+    <div class="col-sm-4">
+      <input type="submit" name="ok" value="註冊" class="w3-button main-btn" style="background: var(--main-blue); width: 60%;">
+    </div>
+  </div>
+  
+</form>
+
+
 {% endblock %}

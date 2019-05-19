@@ -15,25 +15,42 @@
     {% endif %}
 {% endif %}
 
+<div class="row">
+  <h1 style="margin-bottom: 20px">登入</h1>
+</div>
+
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}&nbsp;</td>
-  <td>{{ form.password }}</td>
+<div class="form-group row">
+  <label for="userID" class="col-sm-1 col-form-label" style="text-align: right">{{ form.username.label_tag }}</label>
+  <!-- <td>{{ form.username.label_tag }}&nbsp;</td> -->
+  <div class="col-sm-4 my_input">
+      {{ form.username }}
+  </div>
+  <!-- <td>{{ form.username }}</td> -->
 </div>
 
-<div>
-  <input type="submit" value="login" style="background-color:black;"/>
-  <input type="hidden" name="next" value="{{ next }}" />
+<div class="form-group row">
+  <label for="password" class="col-sm-1 col-form-label" style="text-align: right">{{ form.password.label_tag }}</label>
+  <div class="col-sm-4 my_input">
+    {{ form.password }}
+  </div>
 </div>
-</form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<div class="row">
+  <div class="col-sm-2">&nbsp;</div>
+  <div class="col-sm-4">
+    <input type="submit" value="登入" class="w3-button main-btn" style="background: var(--main-blue); width: 60%;">
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
+</div>
+
+
+<script>
+  $( document ).ready(function() {
+    $(".my_input input").addClass("form-control");
+  });
+</script>
 
 {% endblock %}
