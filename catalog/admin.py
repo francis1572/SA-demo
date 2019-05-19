@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import FoodType, Food, Order, Evaluation, FoodMaterial, make, FoodFeature
+from .models import FoodType, Food, Order, Evaluation, FoodMaterial, make, FoodFeature, User
 
 admin.site.register(FoodType)
 admin.site.register(Food)
@@ -10,3 +10,4 @@ admin.site.register(Evaluation)
 admin.site.register(FoodMaterial)
 admin.site.register(make)
 admin.site.register(FoodFeature)
+admin.site.register(User)

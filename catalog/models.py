@@ -1,7 +1,29 @@
 from django.db import models
-
 import uuid  # Required for unique book instances
+from django.db.models import UUIDField
+from django.contrib.auth.models import AbstractUser
 
+
+class User(AbstractUser):
+    studentName = models.CharField(
+        max_length = 150
+    )
+    parentName = models.CharField(
+        max_length = 150
+    )
+    classId = models.CharField(
+        max_length = 200
+    )
+    studentId = models.CharField(
+        max_length = 200
+    )
+    identity = models.CharField(
+        max_length = 200
+    )
+
+    def __str__(self):
+        return str(self.id)
+    
 
 # Create your models here.
 class FoodType(models.Model):
@@ -33,7 +55,8 @@ class Food(models.Model):
 
 #===============================================================================================
 
-from django.contrib.auth.models import User  # Required to assign User as a borrower
+# from django.contrib.auth.models import User  # Required to assign User as a borrower
+# from catalog.models import User
 class Order(models.Model):
     """Model representing a book genre (e.g. Science Fiction, Non Fiction)."""
     orderID = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this order.")
