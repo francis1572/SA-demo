@@ -53,6 +53,19 @@ def order(request):
             pass
     return render_to_response('order_list.html',locals())
 
+
+def transferCipher(text):
+    text = str.encode(text)
+    # text = smart_text(text)
+    myAES = AESCipher()
+    plain = myAES.decrypt(text)
+    tokens = plain.split("&")
+    output = []
+    for token in tokens:
+        output.append( token.split("=")[1] )
+    return output
+
+
 def register(request):
     userID = request.POST.get('userID', '')
     password = request.POST.get('password', '')
