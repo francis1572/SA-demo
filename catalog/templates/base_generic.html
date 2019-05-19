@@ -17,10 +17,24 @@
 </head>
 
 <style>
-body,h1,h5 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap');
+:root {
+    --main-yellow: #ffc952;
+    --main-blue: #47b8e0;
+    --main-red: #ff7473;
+    --main-black: #34314c;
+}
+
+body, h1, h5 {font-family: 'Noto Sans TC', "Raleway", sans-serif}
+body, html {
+  height: 100%;
+  color: var(--main-black) !important;
+}
+body>div{
+  padding: 10px 20px
+}
 .bgimg {
-  background-image: url('/../static/images/background.jpg');
+  background-image: url('/../static/images/background2.png');
   min-height: 100%;
   background-position: center;
   background-size: cover;
@@ -46,12 +60,12 @@ body, html {height: 100%}
 
 <body>
 
-<div class="bgimg w3-display-container w3-text-white">
+<div class="bgimg w3-display-container">
   <div class="w3-display-middle w3-large">
     {% block content %}{% endblock %}
   </div>
   <div class = "w3-jumbo">
-    <p> ~江鴻數學 線上系統~ </p>
+    <p> 江鴻數學 線上系統 </p>
   </div>
   <div class="row">
     <div class="col-sm-2">
