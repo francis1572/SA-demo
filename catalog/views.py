@@ -1,9 +1,11 @@
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from catalog.models import User
 
 # Create your views here.
 from .models import Food, FoodType, FoodMaterial, Evaluation, Order, FoodFeature
+from .AESCipher import AESCipher
 
 def index(request):
     """
@@ -22,7 +24,6 @@ def index(request):
      )
 
 def evaluation(request):
-
     userID = request.POST.get('userID', '')
     foodID = request.POST.get('foodID', '')
     content = request.POST.get('content', '')
@@ -55,10 +56,26 @@ def order(request):
 def register(request):
     userID = request.POST.get('userID', '')
     password = request.POST.get('password', '')
-    if (userID != '' and password != ''):
-        User.objects.create_user(username=userID, password=password)
+    studentName = request.POST.get('studentName', '')
+    parentName  = request.POST.get('parentName', '')
+    cipher = request.POST.get('cipher', '')
+    data = []
+    if cipher != "":
+        data = transferCipher(cipher)
+
+    if (userID != '' and password != '' and studentName != "" and parentName != "" and len(data) == 3):
+        User.objects.create_user(
+            username=userID,
+            password=password,
+            studentName=studentName,
+            parentName=parentName,
+            classId=data[0],
+            studentId=data[1],
+            identity=data[2]
+        )
         return render_to_response('index.html',locals())
     return render_to_response('register.html',locals())
+
 
 def addFood(request):
     foodName = request.POST.get('foodName', '')
